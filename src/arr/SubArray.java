@@ -1,63 +1,31 @@
 package arr;
 
+import javax.lang.model.util.ElementScanner6;
+
 /**
- * Takes an unsorted array of variable size and finds a continuous sub-array
- * that adds to a given value
+ * Manipulates arrays in various ways
  */
 public class SubArray
 {
     //Variables
-    /**
-     * The array of values
-     */
-    private int[] a;
-    /**
-     * The value to be found
-     */
-    private int value;
+
     //Constructor
     /**
-     * Creates an object with an array and value
+     * Creates an object
      */
-    public SubArray(int[] a, int value)
+    public SubArray()
     {
-        this.a = a;
-        this.value = value;
+        
     }
+
     //Methods
     /**
-     * @return the a
-     */
-    public int[] getA() 
-    {
-        return a;
-    }
-    /**
-     * @return the value
-     */
-    public int getValue() 
-    {
-        return value;
-    }
-    /**
-     * @param a the a to set
-     */
-    public void setA(int[] a) 
-    {
-        this.a = a;
-    }
-    /**
-     * @param value the value to set
-     */
-    public void setValue(int value) 
-    {
-        this.value = value;
-    }
-    /**
      * Find first instance
+     * @param a the array
+     * @param value the value
      * @return the subarray containing the instance
      */
-    private int[] singleFind()
+    private int[] singleFind(int[]a,int value)
     {
         int[] ret = new int[a.length];
         
@@ -88,26 +56,54 @@ public class SubArray
         }
         return ret;
     }
-
     /**
-     * Find multi instance
-     * @return the multi subarray containing the instances
+     * Finds triplets within an array, where two elements add into a third element
+     * @param a the array
      */
-
-    /**
-     * Return number of instances
-     * @return the number of instances
-     */
+    private void triplets(int[]a)
+    {
+        int l,r,count = 0;
+        //Create an array to hold possible values
+        int[]b=new int[a.length];
+        //Iterate through array finding all possible sums
+        for(int i = 0; i < a.length; i++)
+        {
+            l = 0;
+            r = a.length-1;
+            while(l<r)
+            {
+                if(a[l]+a[r]==a[i])
+                {
+                    count++;
+                    l++;
+                }
+                else if(a[l]+a[r]>a[i])
+                {
+                    r--;
+                }
+                else
+                {
+                    l++;
+                }
+            }
+            if(count==0)
+            {
+                System.out.println(" -1 ");
+            }
+        }
+        //Print values that match
+    }
 
     //Main
     public static void main(String[] args) 
     {
+        /*  Testing for singleFind()
         int[] a = {6};
         int i = 5;
 
-        SubArray s = new SubArray(a,i);
+        SubArray s = new SubArray();
 
-        int[] r = s.singleFind();
+        int[] r = s.singleFind(a,i);
 
         for(int n = 0; n < r.length; n++)
         {
@@ -118,6 +114,7 @@ public class SubArray
         }
         
         System.out.println();
+        */
 
     }
 }
