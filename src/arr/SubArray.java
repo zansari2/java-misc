@@ -156,31 +156,97 @@ public class SubArray
     private void findMissingNum(int[]a)
     {
         int n = a.length;
-        int curr = 0;
         int ret = 0;
         for(int i = 0; i < n-1; i++)
         {
-
+            if(a[i]+1!=a[i+1])
+            {
+                ret = a[i]+1;
+            }
         }
+        System.out.println(ret);
+    }
+    /**
+     * Merge two arrays into a sorted array
+     * @param a the first array
+     * @param b the second array
+     */
+    private void mergeArray(int[]a,int[]b)
+    {
+        int[]c = new int[a.length+b.length];
+        int s = 0;
+        for(int i = 0; i < c.length; i++)
+        {
+            if(i<a.length)
+            {
+                c[i]=a[i];
+            }
+            else
+            {
+                c[i]=b[s];
+                s++;
+            }
+        }
+        sort(c);
+        print(c);
+    }
+    /**
+     * Sorts an array
+     * @param a the array
+     * @return the sorted array
+     */
+    private int[] sort(int[]a)
+    {
+        //Sort the array
+        int n = a.length; 
+        for (int i = 0; i < n-1; i++) 
+        {
+            for (int j = 0; j < n-i-1; j++) 
+            {
+                if (a[j] > a[j+1]) 
+                { 
+                    // swap a[j+1] and a[i] 
+                    int temp = a[j]; 
+                    a[j] = a[j+1]; 
+                    a[j+1] = temp; 
+                } 
+            }
+        }
+        return a;
+    }
+    private void print(int[]a)
+    {
+        //Iterate through array
+        int n = a.length;
+        for(int i = 0; i < n; i++)
+        {
+            System.out.print(a[i]+" ");
+        }
+        System.out.println();
+    
     }
     //Main
     public static void main(String[] args) 
     {
         SubArray arr = new SubArray();
-        int[] a = {-1,3,3,2}; 
+        int[] a = {1,2,3,5}; 
+        int[] b = {4, 9, 7, 5, 24, 0};
         /*  Testing for singleFind()
         int i = 5;
         arr.singleFind(a,i);
         */
-        int i = 5;
-        arr.singleFind(a,i);
         /*  Testing for triplets
         arr.triplets(a);
         */
-
         /*  Testing for kAlgorithm
         arr.kAlgorithm(a);
         */
-
+        /*  Testing for findMissingNum
+        arr.findMissingNum(a);
+        */
+        /*  Testing for mergeArray
+        arr.mergeArray(a, b);
+        */
+        
     }
 }
