@@ -11,10 +11,7 @@ public class SubArray
     /**
      * Creates an object
      */
-    public SubArray()
-    {
-        
-    }
+    public SubArray(){}
 
     //Methods
     /**
@@ -214,6 +211,10 @@ public class SubArray
         }
         return a;
     }
+    /**
+     * Prints an array
+     * @param a the array
+     */
     private void print(int[]a)
     {
         //Iterate through array
@@ -225,12 +226,150 @@ public class SubArray
         System.out.println();
     
     }
+    /**
+     * Rearranges an ordered array into an array with alternating max min values
+     */
+    private void minMax(int[]a)
+    {
+        int min;
+        int max;
+        int[] ret = new int[a.length];
+        int l = 0;
+        int r = a.length-1;
+        int curr = 0;
+        while(l<r)
+        {
+            ret[curr]=a[r];
+            curr++;
+            ret[curr]=a[l];
+            curr++;
+            l++;
+            r--;
+        }
+        print(ret);
+    }
+    /**
+     * Find pairs from a and b such that a[x]^b[x]>b[x]^a[x]
+     * @param a the first array
+     * @param b the second array
+     */
+    private void pairs(int[]a,int[]b)
+    {
+        int counter=0;
+        for(int i =0; i < a.length;i++)
+        {
+            for(int n=0;n<b.length;n++)
+            {
+                if(Math.pow(a[i],b[n])>Math.pow(b[n], a[i]))
+                {
+                    counter++;
+                }
+            }
+        }
+        System.out.println(counter);
+    }
+    /**
+     * Counts the number of inversions required to sort an array
+     * @param a the array
+     */
+    private void inversionCount(int[]a)
+    {
+        //Sort the array
+        int counter = 0;
+        int n = a.length; 
+        for (int i = 0; i < n-1; i++) 
+        {
+            for (int j = 0; j < n-i-1; j++) 
+            {
+                if (a[j] > a[j+1]) 
+                { 
+                    // swap a[j+1] and a[i] 
+                    int temp = a[j]; 
+                    a[j] = a[j+1]; 
+                    a[j+1] = temp; 
+                    counter++;
+                } 
+            }
+        }
+        System.out.println(counter);
+    }
+    /**
+     * Finds the position where equilibrium first occurs such that the sum of elements before equal to the sum of elements after it
+     * @param a the array
+     */
+    private void equi(int[]a)
+    {
+        int position = -1;  //Default value set to -1 if equilibirum can't be reached
+        int sum=0;          //Sum of the array values
+
+        //Find the sum
+        for(int i = 0; i < a.length; i++)
+        {
+            sum+=a[i];
+        }
+
+        //Find the point
+        int i = 0;
+        int equi = 0;       //Equilibrium value counter
+        while(equi<sum/2)
+        {
+            equi+=a[i];
+            i++;
+        }
+
+        //Check if equi matches the sum or if the point has been passed
+        if(equi==sum/2.)
+        {
+            position = i-1;
+        }
+
+        System.out.println(position);
+    }
+    /**
+     * Finds a variation of the equilibrium point where the algorithm checks for a point where all elements beyonnd and behind the current point's sum are equal
+     * @param a the array
+     */
+    private void equi2(int[]a)
+    {
+        int lowSum = 0;
+        int hiSum = 0;
+        boolean check = false;
+        //Cycle through the array
+        for(int i =0; i<a.length;i++)
+        {
+            //Check below the point
+            for(int h = i;h>=0;h--)
+            {
+                lowSum+=a[h];
+            }
+            lowSum-=a[i];
+            //Check above the point
+            for(int r = i+1;r<a.length;r++)
+            {
+                hiSum+=a[r];
+            }
+            //Check if sum's match
+            if(hiSum==lowSum)
+            {
+                check=true; 
+                System.out.println("Match at "+i);
+            }
+            //Reset sums
+            lowSum=0;
+            hiSum=0;
+        }
+        if(check==false)
+        {
+            System.out.println("No match found.");
+        }
+    }
+
     //Main
     public static void main(String[] args) 
     {
         SubArray arr = new SubArray();
-        int[] a = {1,2,3,5}; 
-        int[] b = {4, 9, 7, 5, 24, 0};
+        int[] a = {1,2,1,2,1};
+        int[] b = {1,5};
         /*  Testing for singleFind()
         int i = 5;
         arr.singleFind(a,i);
@@ -247,6 +386,24 @@ public class SubArray
         /*  Testing for mergeArray
         arr.mergeArray(a, b);
         */
-        
+        /*  Testing for minMax
+        arr.minMax(a);
+        */
+        /*  Testing for pairs
+        arr.pairs(a, b);
+        */
+        /*  Testing for inversionCount
+        arr.inversionCount(a);
+        */
+        /*  Testing for sort and print
+        arr.print(arr.sort(a));
+        */
+        /* Testing for equilibrium
+        arr.equi(a);
+        */
+        /* Testing for equilibrium 2
+        arr.equi2(a);
+        */
+
     }
 }
