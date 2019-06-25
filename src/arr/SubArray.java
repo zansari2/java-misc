@@ -545,19 +545,22 @@ public class SubArray
     private void subArrayMaxMin(int[]a, int k)
     {
         int n = 0;
-        int m = k;
+        int m = k-1;
+        //Sort the array
         a = sort(a);
         int retN = a[n];
         int retM = a[m];
-        print(a);
         int difference = a[m]-a[n];
-        for( int i = 0; i < a.length-k;i++){
+        //Increment through array with the given distance
+        for( int i = 0; i < a.length-m;i++){
+            //Check if the new difference is worth updating
             if(a[m+i]-a[n+i]<difference)
             {
                 retN = a[n+i];
                 retM = a[m+i];
             }
         }
+        //Print the best distance
         System.out.println(retM+"-"+retN+"="+(retM-retN));
     }
     //Main
@@ -566,10 +569,10 @@ public class SubArray
         //Testing values for each method
         //Note: current values may not be applicable for all methods
         SubArray arr = new SubArray();
-        int[] a = {3,4,1,9,56,7,9,12};
+        int[] a = {7,3,2,4,9,12,56};
         int[] b = {910,1200,1120,1130,1900,2000};
-        int i = 5;
+        int i = 3;
 
-        arr.subArrayMaxMin(a, i);
+
     }
 }
