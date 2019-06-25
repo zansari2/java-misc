@@ -363,47 +363,83 @@ public class SubArray
             System.out.println("No match found.");
         }
     }
+    /**
+     * Finds all leaders in a given array
+     * Leaders are defined as elements whose value is greater than or equal to all following elements
+     * @param a the array
+     */
+    private void findLeader(int[]a)
+    {
+        int sum = 0;
+        //Iterate through each elements checking for leadership
+        for(int i = 0; i < a.length; i++)
+        {
+            //Find total of all following values
+            for(int l = i+1; l < a.length; l++)
+            {
+                sum+=a[l];
+            }
+            //Compare current value to value of all following elements
+            if(sum<=a[i])
+            {
+                System.out.println("Leader: " + i);
+            }
+            //Reset sum
+            sum = 0;
+        }
+    }
+    /**
+     * Finds the minimum number of platforms required for a railway station, such that no trains wait
+     * Given arrival and departure times
+     * @param arrivals the arrival times
+     * @param departures the departure times
+     */
+    private void findTrainPlatforms(int[]arrivals,int[]departures)
+    {
+        int numArrivals = arrivals.length;
+        int numDepartures = departures.length;
+        int numPlatforms = 1;
+        int ret = 1;
 
+        //Check for mismatched array lengths
+        if(numArrivals!=numDepartures)
+        {
+            System.out.println("Error. The number of arrivals isn't equal to the number of departures.");
+        }
+        else
+        {
+            //Cycle through arrivals
+            for(int i = 1; i < numArrivals-1; i++)
+            {
+                for(int l = 0; l < i; l++)
+                {
+                    //Check if anny trains that arrived before the current arrivals, haven't departed yet
+                    if(arrivals[i]<departures[l])
+                    {
+                        numPlatforms++;
+                    }
+                }
+                //Updates the return if the current interval would exceed the maximum alloted platforms
+                if(numPlatforms>ret)
+                {
+                    ret = numPlatforms;
+                }
+                //Resets the platforms to begin the test for the next interval
+                numPlatforms = 1;
+            }
+        }
+        //Print number of platforms to console
+        System.out.println("Number of platforms"+ret);
+    }
     //Main
     public static void main(String[] args) 
     {
+        //Testing values for each method
+        //Note: current values may not be applicable for all methods
         SubArray arr = new SubArray();
-        int[] a = {1,2,1,2,1};
-        int[] b = {1,5};
-        /*  Testing for singleFind()
+        int[] a = {900,940,950,1100,1500,1800};
+        int[] b = {910,1200,1120,1130,1900,2000};
         int i = 5;
-        arr.singleFind(a,i);
-        */
-        /*  Testing for triplets
-        arr.triplets(a);
-        */
-        /*  Testing for kAlgorithm
-        arr.kAlgorithm(a);
-        */
-        /*  Testing for findMissingNum
-        arr.findMissingNum(a);
-        */
-        /*  Testing for mergeArray
-        arr.mergeArray(a, b);
-        */
-        /*  Testing for minMax
-        arr.minMax(a);
-        */
-        /*  Testing for pairs
-        arr.pairs(a, b);
-        */
-        /*  Testing for inversionCount
-        arr.inversionCount(a);
-        */
-        /*  Testing for sort and print
-        arr.print(arr.sort(a));
-        */
-        /* Testing for equilibrium
-        arr.equi(a);
-        */
-        /* Testing for equilibrium 2
-        arr.equi2(a);
-        */
 
     }
 }
