@@ -431,15 +431,145 @@ public class SubArray
         //Print number of platforms to console
         System.out.println("Number of platforms"+ret);
     }
+    /**
+     * Reverses a subarray given a number of elements to be reversed
+     * @param a the array 
+     * @param k the number of elements
+     */
+    private void reverseSubArray(int[]a,int k)
+    {
+        int n = 0;
+        int m = k-1;
+        int temp;
+
+        //Cycle through the subarray swapping elements
+        while(n<m)
+        {
+            temp = a[n];
+            a[n]=a[m];
+            a[m]=temp;
+            n++;
+            m--;
+        }
+        print(a);
+    }
+    /**
+     * Finds kth smallest element in a array with distinct elements
+     * @param a the array
+     * @param k the element
+     */
+    private void findKSmallElement(int[]a,int k)
+    {
+        sort(a);
+        System.out.println(a[k-1]);
+    }
+    /**
+     * Simulates a rain water volume measurement using an array
+     * @param a the array
+     */
+    private void measureArrayVolume(int[]a)
+    {
+        int volume = 0;
+        boolean start = false;
+        int lWall = 0;
+        int lWallIndex = 0;
+        //Cycle through array
+        for(int i = 0; i < a.length; i++)
+        {
+            //Check if the end of the array has been reached
+            if(i == a.length-1)
+            {
+                //Check if the ending wall is lower the the starting wall
+                start =false;
+                if(a[i]<lWall)
+                {
+                    //Subtract extra values if necessary
+                    volume -= (i-lWallIndex-1)*(lWall-a[i]);
+                }
+            }
+            //Starts the counting process if requirements are met to begin adding
+            else if(a[i]!=0&&start==false&&i!=a.length-1)
+            {
+                start = true;
+                lWall = a[i];
+                lWallIndex = i;
+            }
+            //Handles case of adding to the volume
+            else if(start==true&&a[i]<lWall)
+            {
+                volume += lWall-a[i];
+            }
+            //Handles the case of adding should end and reset for the next cycle
+            else if(start==true&&a[i]>lWall)
+            {
+                lWall=a[i];
+                lWallIndex = i;
+            }
+        }
+        System.out.println(volume);
+    }
+    /**
+     * Checks for pythagorean triplets in an array where 3 elements satisfy a^2+b^2=c^2
+     * @param a the array
+     */
+    private void findPythTriplets(int[]a)
+    {
+        int c;
+        //Cycle through array
+        for(int i = 0; i < a.length; i++)
+        {
+            //For each element in array cycle through array to look for possible matches
+            for(int l = 0; l < a.length; l++)
+            {
+                //Remove elements that match themselves
+                if(l!=i)
+                {
+                    c=(int)(Math.pow(a[i],2)+Math.pow(a[l],2));
+                    //Cycle again to look for potential matches for the answer
+                    for(int j = 0; j < a.length; j++)
+                    {
+                        if(c==(int)Math.pow(a[j],2))
+                        {
+                            System.out.println(a[i]+"^2 + "+a[l]+ "^2 = "+ a[j]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /**
+     * Finds a subarray of k size with minimum distance between maximum and minimum value
+     * @param a the array
+     * @param k the size of the subarray
+     */
+    private void subArrayMaxMin(int[]a, int k)
+    {
+        int n = 0;
+        int m = k;
+        a = sort(a);
+        int retN = a[n];
+        int retM = a[m];
+        print(a);
+        int difference = a[m]-a[n];
+        for( int i = 0; i < a.length-k;i++){
+            if(a[m+i]-a[n+i]<difference)
+            {
+                retN = a[n+i];
+                retM = a[m+i];
+            }
+        }
+        System.out.println(retM+"-"+retN+"="+(retM-retN));
+    }
     //Main
     public static void main(String[] args) 
     {
         //Testing values for each method
         //Note: current values may not be applicable for all methods
         SubArray arr = new SubArray();
-        int[] a = {900,940,950,1100,1500,1800};
+        int[] a = {3,4,1,9,56,7,9,12};
         int[] b = {910,1200,1120,1130,1900,2000};
         int i = 5;
 
+        arr.subArrayMaxMin(a, i);
     }
 }
