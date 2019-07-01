@@ -6,3 +6,7 @@ java SubArray
 Clear-Host
 javac .\arr\SubArray.java
 java -classpath . arr.SubArray 
+
+Clear-Host
+javac .\str\StringManipulation.java
+java -classpath . str.StringManipulation
