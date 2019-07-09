@@ -79,7 +79,6 @@ public class StringManipulation
         int length = s.length();
         StringManipulation sm = new StringManipulation(s,length);
         //Print the results of the method
-        System.out.println
-        (sm.findPermutations());
+        System.out.println(sm.findPermutations());
     }
 }
