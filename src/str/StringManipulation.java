@@ -1,5 +1,5 @@
 package str;
-
+import java.util.*;
 /**
  * Manipulates strings in various ways
  */
@@ -45,31 +45,75 @@ public class StringManipulation
         return str.toString();
     }
     /**
-     * Inverts a boolean
-     * @param b the boolean being inverted
-     * @return the inverted boolean
+     * Inserts a character into a string
+     * @param str the string being edited
+     * @param c the character being added
+     * @param j the position of insert
+     * @return the new string
      */
-    private boolean boolInvert(boolean b)
-    {
-        boolean ret;
-        if(b == false)
-        {
-            ret = true;
-        }
-        else
-        {
-            ret = false;
-        }
-        return ret;
+    private String charinsert(String str,char c,int j){
+	    String begin=str.substring(0,j);
+	    String end=str.substring(j);
+	    return begin+c+end;
     }
     /**
-     * Returns a string with all permuntations of a given string
-     * @return the permutations
+     * 
+     * @param str the string being edited
+     * @return a set of strings
      */
-    private String findPermutations()
-    {
+    private Set<String> pf (String str){
+        //Creates a new set of strings that will be returned
+        Set<String>perm=new HashSet<String>();
+        //Handles null input
+	    if(str==null){
+	        return null;
+        }
+        //Handles empty input
+	    if(str.length()==0){
+	        perm.add("");
+	        return perm;
+        }
+        //Sets the inital character to the beginning of the string
+        char initial=str.charAt(0);
+        //Sets the remaining string to the substring after the initial character
+        String rem=str.substring(1);
+        //Creates a new set recursively with the remaining string
+        Set<String>words=pf(rem);
+        //Once recursively obtained interate through the permutations
+        for(String strnew:words)
+        {
 
-        return null;
+            for(int i=0;i<=strnew.length();i++)
+            {
+
+	            perm.add(charinsert(strnew,initial,i));
+	        }
+	    }
+	    return perm;
+	}
+    /**
+     * Prints a string with all permuntations of a given string
+     */
+    private void findPermutations()
+    {   
+        //Create a copy of the string to be edited
+        String str=this.s;
+        //Create a hashset of strings
+        Set<String> s = new HashSet<String>();
+        //Adds all permutations of the string to the set
+		s.addAll(pf(str));
+        int n = s.size();
+        //Create an array of strings to hold the output
+        String arr[] = new String[n];
+        //Convert the set to an array and assign
+        arr = s.toArray(arr);
+        //Sort the array
+        Arrays.sort(arr);
+        //Print the results
+        for(int i=0;i<n;i++){
+            System.out.print(arr[i]+" ");
+        }
+        System.out.println();
     }
     //Main
     public static void main(String[] args) 
@@ -79,6 +123,6 @@ public class StringManipulation
         int length = s.length();
         StringManipulation sm = new StringManipulation(s,length);
         //Print the results of the method
-        System.out.println(sm.findPermutations());
+        sm.findPermutations();
     }
 }
