@@ -82,10 +82,8 @@ public class StringManipulation
         //Once recursively obtained interate through the permutations
         for(String strnew:words)
         {
-
             for(int i=0;i<=strnew.length();i++)
             {
-
 	            perm.add(charinsert(strnew,initial,i));
 	        }
 	    }
@@ -110,7 +108,8 @@ public class StringManipulation
         //Sort the array
         Arrays.sort(arr);
         //Print the results
-        for(int i=0;i<n;i++){
+        for(int i=0;i<n;i++)
+        {
             System.out.print(arr[i]+" ");
         }
         System.out.println();
