@@ -10,3 +10,7 @@ java -classpath . arr.SubArray
 Clear-Host
 javac .\str\StringManipulation.java
 java -classpath . str.StringManipulation
+
+Clear-Host
+javac .\alg\Relationship.java
+java -classpath . alg.Relationship
