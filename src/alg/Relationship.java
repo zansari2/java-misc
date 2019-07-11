@@ -7,6 +7,10 @@ import java.util.Scanner;
 public class Relationship
 {
     /**
+     * Size of sets
+     */
+    private int size;
+    /**
      * Set 1
      */
     private String[] set1;
@@ -27,6 +31,7 @@ public class Relationship
         this.set1 = set1;
         this.set2 = set2;
         this.relation = null;   
+        size = 0;
     }
 
     /**
@@ -48,6 +53,12 @@ public class Relationship
         this.set2 = set2;
     }
     /**
+     * @param size the size to set
+     */
+    public void setSize(int size) {
+        this.size = size;
+    }
+    /**
      * @return the relation
      */
     public String[] getRelation() {
@@ -65,23 +76,36 @@ public class Relationship
     public String[] getSet2() {
         return set2;
     }
+    /**
+     * @return the size
+     */
+    public int getSize() {
+        return size;
+    }
 
     /**
      * Creates a relationship between the two sets
      */
     public void createRelationship()
     {
-
+        for(int i = 0; i < size; i++)
+        {
+            
+        }
     }
 
     public static void main(String[] args) 
     {
         Scanner scan = new Scanner(System.in);
+        Relationship r = new Relationship(null,null);
         String[] set1;
+        String[] set2;
         int setSize = 0;
         String confirm;
         System.out.print("Hello. This class is meant to simulate a relationship between two sets. To continue, hit enter...");    
         scan.nextLine();
+
+        //Enter the size
         do
         {
             System.out.print("\nPlease enter the number of elements in both sets: ");
@@ -101,7 +125,32 @@ public class Relationship
             }    
         }
         while(!confirm.equalsIgnoreCase("Y"));
+        set1 = new String[setSize];
+        set2 = new String[setSize];
         
+        //Enter the elements
+        confirm = "N";
+        System.out.println();
+        do
+        {
+            for(int i = 0; i < setSize; i ++)
+            {
+                System.out.print("Please enter element "+ (i+1) + " of set 1: ");
+                set1[i] = scan.nextLine();
+            }
+            System.out.println("\nPlease confirm that your enteries were correct.");
+            for(int i = 0; i < setSize; i ++)
+            {
+                System.out.print(set1[i] + "...");
+            }
+            System.out.print("\nIs this correct? (Y/N) : ");
+            confirm = scan.nextLine();
+        }
+        while(!confirm.equalsIgnoreCase("Y"));
+
+
+        r.setSize(setSize);
+
         scan.close();
         System.out.println("\nProgram exiting...\n");
     }
