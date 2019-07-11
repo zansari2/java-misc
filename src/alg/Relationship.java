@@ -1,6 +1,8 @@
 package alg;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import javax.management.relation.Relation;
 /**
  * Simulates a relationship between two sets
  */
@@ -96,23 +98,86 @@ public class Relationship
 
     public static void main(String[] args) 
     {
+        Relationship r = Relationship.userInput();
+    }
+    /**
+     * @return a user defined relationship object
+     */
+    private static Relationship userInput()
+    {
         Scanner scan = new Scanner(System.in);
-        Relationship r = new Relationship(null,null);
         String[] set1;
         String[] set2;
         int setSize = 0;
-        String confirm;
         System.out.print("Hello. This class is meant to simulate a relationship between two sets. To continue, hit enter...");    
         scan.nextLine();
 
         //Enter the size
+        setSize = Relationship.inputSize(scan);
+        
+        set1 = new String[setSize];
+        set2 = new String[setSize];
+        
+        //Enter the elements into the sets
+        set1 = inputSet(setSize, "set 1",scan);
+        set2 = inputSet(setSize, "set 2",scan);
+
+        Relationship r1 = new Relationship(set1,set2);
+
+        scan.close();
+        System.out.println("\nProgram exiting...\n");
+        return null;
+    }
+    /**
+     * Creates and returns a string array from user input
+     * @param size the size of array to return
+     * @param set the set name
+     * @param scan1 the scanner
+     * @return the string array
+     */
+    private static String[] inputSet(int size, String set, Scanner scan1)
+    {
+        String[] set1 = new String[size];
+        String confirm = "N";
+        System.out.println();
+        do
+        {
+            for(int i = 0; i < size; i ++)
+            {
+                System.out.print("Please enter element "+ (i+1) + " of "+set+": ");
+                set1[i] = scan1.nextLine();
+            }
+            System.out.println("\nPlease confirm that your enteries were correct.");
+            for(int i = 0; i < size; i ++)
+            {
+                if(i == size-1)
+                {
+                    System.out.print(set1[i]);
+                }
+                else
+                {
+                    System.out.print(set1[i] + "-");
+                }
+            }
+            System.out.print("\nIs this correct? (Y/N) : ");
+            confirm = scan1.nextLine();
+        }
+        while(!confirm.equalsIgnoreCase("Y"));
+        return set1;
+    }
+    /**
+     * @param scan the scanner
+     * @return the input size
+     */
+    private static int inputSize(Scanner scan)
+    {
+        int setSize = 0;
         do
         {
             System.out.print("\nPlease enter the number of elements in both sets: ");
             try 
             {
                 setSize = scan.nextInt();
-                set1 = new String[setSize];
                 System.out.print("Size of " + setSize + " was entered. Is this correct? (Y/N) : ");
                 scan.nextLine();
                 confirm = scan.nextLine();
@@ -125,33 +190,6 @@ public class Relationship
             }    
         }
         while(!confirm.equalsIgnoreCase("Y"));
-        set1 = new String[setSize];
-        set2 = new String[setSize];
-        
-        //Enter the elements
-        confirm = "N";
-        System.out.println();
-        do
-        {
-            for(int i = 0; i < setSize; i ++)
-            {
-                System.out.print("Please enter element "+ (i+1) + " of set 1: ");
-                set1[i] = scan.nextLine();
-            }
-            System.out.println("\nPlease confirm that your enteries were correct.");
-            for(int i = 0; i < setSize; i ++)
-            {
-                System.out.print(set1[i] + "...");
-            }
-            System.out.print("\nIs this correct? (Y/N) : ");
-            confirm = scan.nextLine();
-        }
-        while(!confirm.equalsIgnoreCase("Y"));
-
-
-        r.setSize(setSize);
-
-        scan.close();
-        System.out.println("\nProgram exiting...\n");
+        return setSize;
     }
 }
