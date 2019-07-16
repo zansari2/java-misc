@@ -114,14 +114,35 @@ public class StringManipulation
         }
         System.out.println();
     }
+    /**
+     * Recursively removes adjacent duplicates
+     * @param c the current character being tested
+     * @return the string
+     */
+    private String removeDuplicates(char c, int i)
+    {
+        String ret = "";
+        if(length-1==i)
+        {
+            System.out.println(ret);
+            return ret;
+        }
+        else
+        {
+            i++;
+            removeDuplicates(s.charAt(i),i);
+            ret = ret + s.charAt(i);
+        }
+        return ret;
+    }
     //Main
     public static void main(String[] args) 
     {
         //Create and initialze a StringManipulation
-        String s = "ABC";
+        String s = "ABCDEFG";
         int length = s.length();
         StringManipulation sm = new StringManipulation(s,length);
         //Print the results of the method
-        sm.findPermutations();
+        sm.removeDuplicates(s.charAt(0),0);
     }
 }
